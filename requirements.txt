@@ -1,6 +1,2 @@
-pip==23.2.1
-setuptools==68.0.0
-wheel==0.40.0
-pillow==9.5.0
+openai==0.28.0
 streamlit
-openai
