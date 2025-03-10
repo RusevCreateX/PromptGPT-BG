@@ -99,17 +99,17 @@ def generate_response(prompt):
     # Добавяме най-новото user съобщение към историята
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Изпращаме цялата история към ChatCompletion
-    def generate_response(prompt):
+    # Взимаме отговора от OpenAI
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=[ ... ],
+        messages=st.session_state.messages,
         temperature=0.7
     )
-    return response.choices[0].message["content"]
 
+    # Текстът от асистента
+    reply = response.choices[0].message["content"]
 
-    # Записваме отговора в историята
+    # Добавяме отговора в историята
     st.session_state.messages.append({"role": "assistant", "content": reply})
 
     return reply
