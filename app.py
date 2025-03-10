@@ -100,7 +100,7 @@ def generate_response(prompt):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Изпращаме цялата история към ChatCompletion
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=st.session_state.messages,
         temperature=0.7,
