@@ -91,6 +91,10 @@ st.title("Моят персонализиран ChatGPT на български"
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": SYSTEM_PROMPT}]
 
+# Съхраняваме качените файлове в сесията (за да не се губят при рестарт на приложението)
+if "uploaded_files" not in st.session_state:
+    st.session_state["uploaded_files"] = []
+
 def generate_response(prompt):
     """
     Извиква OpenAI ChatCompletion API с текущата история на разговора.
@@ -113,6 +117,32 @@ def generate_response(prompt):
     st.session_state.messages.append({"role": "assistant", "content": reply})
 
     return reply
+
+# Блок за качване на файлове – приемаме множество файлове (screenshots, PDF и т.н.)
+uploaded_files = st.file_uploader(
+    label="Качи скрийншоти или други файлове:", 
+    accept_multiple_files=True,
+    type=None  # може да ограничите типа, напр. ["png", "jpg", "pdf"]
+)
+
+# Ако има качени нови файлове, добавяме ги към сесията
+if uploaded_files:
+    for file in uploaded_files:
+        # Ако вече не сме го качили преди, го добавяме в списъка
+        if file not in st.session_state["uploaded_files"]:
+            st.session_state["uploaded_files"].append(file)
+
+# Показваме списъка с качени файлове
+if st.session_state["uploaded_files"]:
+    st.write("### Качени файлове:")
+    for idx, file in enumerate(st.session_state["uploaded_files"], start=1):
+        st.write(f"**Файл {idx}:** {file.name}")
+        # По избор: ако е изображение, можем да го визуализираме
+        # Форматите, които Streamlit поддържа като изображение: png, jpg, jpeg, gif...
+        if file.type.startswith("image"):
+            st.image(file, caption=file.name)
+
+st.write("---")
 
 # Текстово поле, в което потребителят пише своето съобщение
 user_input = st.text_input("Задай въпрос или напиши нещо:")
