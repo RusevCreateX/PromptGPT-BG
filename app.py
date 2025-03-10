@@ -3,7 +3,7 @@ import openai
 import os
 
 # -- Заменете това с Вашия OpenAI API ключ! --
-openai.api_key = "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"
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # -- Може да промените този System Prompt според Вашите нужди --
 SYSTEM_PROMPT = """
