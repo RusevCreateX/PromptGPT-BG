@@ -100,11 +100,11 @@ def generate_response(prompt):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Изпращаме цялата история към ChatCompletion
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=st.session_state.messages,
-        temperature=0.7,
-        max_tokens=300
+   response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=...,
+    temperature=0.7,
+    ...
     )
 
     # Отговорът от модела (assistant)
