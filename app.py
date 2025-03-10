@@ -3,7 +3,7 @@ import openai
 import os
 
 # -- Заменете това с Вашия OpenAI API ключ! --
-openai.api_key = "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"
+openai.api_key = "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"
 
 # -- Може да промените този System Prompt според Вашите нужди --
 SYSTEM_PROMPT = """
